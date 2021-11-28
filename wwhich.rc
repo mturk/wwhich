@@ -1,0 +1,53 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <windows.h>
+#include "wwhich.h"
+
+#define IDI_MAINICON         101
+IDI_MAINICON         ICON   "wwhich.ico"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST  "wwhich.manifest"
+
+1 VERSIONINFO
+ FILEVERSION WWHICH_VERSION_CSV
+ PRODUCTVERSION WWHICH_VERSION_CSV
+ FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_APP
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments",           WWHICH_LICENSE_SHORT
+            VALUE "CompanyName",        WWHICH_COMPANY_NAME
+            VALUE "FileDescription",    WWHICH_DESCRIPTION
+            VALUE "FileVersion",        WWHICH_VERSION_STR
+            VALUE "InternalName",       WWHICH_INTNAME
+            VALUE "LegalCopyright",     WWHICH_COPYRIGHT
+            VALUE "OriginalFilename",   WWHICH_INTNAME ".exe"
+            VALUE "ProductName",        WWHICH_INTNAME
+            VALUE "ProductVersion",     WWHICH_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

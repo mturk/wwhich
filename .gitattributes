@@ -1,0 +1,4 @@
+# Declare files that will always have LF or CRLF line endings on checkout.
+*.sh eol=lf
+*.mak eol=crlf
+*.bat eol=crlf
