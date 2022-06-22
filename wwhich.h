@@ -76,9 +76,9 @@
 
 #define WWHICH_INTNAME         "wwhich"
 #define WWHICH_DESCRIPTION     "Write the full path of COMMAND(s) to standard output"
-
+#define WWHICH_AUTHOR          "Written by Mladen Turk (mturk apache.org)"
 #define WWHICH_COPYRIGHT \
-    "Copyright (c) 1964-2021 The Acme Corporation or its "              \
+    "Copyright (c) 1964-2022 The Acme Corporation or its "                  \
     "licensors, as applicable."
 
 #define WWHICH_COMPANY_NAME "Acme Corporation"

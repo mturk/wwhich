@@ -31,7 +31,7 @@
                     version="1.0.1.0"
                     processorArchitecture="amd64"
                     name="Acme.Tools.wwhich" />
-  <description>Run batch files as Windows service</description>
+  <description>Write the full path of COMMAND(s) to standard output</description>
 
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
