@@ -51,7 +51,7 @@
 /**
  * Set to zero for non dev versions
  */
-#define WWHICH_ISDEV_VERSION    1
+#define WWHICH_ISDEV_VERSION    0
 
 #if WWHICH_ISDEV_VERSION
 # define WWHICH_VERSION_SFX     WWHICH_VENDOR_SFX "-dev"
