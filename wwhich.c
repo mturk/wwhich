@@ -44,6 +44,8 @@ static void usage(FILE *os)
     fprintf(os, "Usage: " WWHICH_INTNAME " [options] COMMAND[.exe] [...]\n");
     fprintf(os, "Write the full path of COMMAND(s) to standard output.\n\n");
     fprintf(os, "  /P   Print only the COMMAND[.exe] directory part.\n");
+    fprintf(os, "  /D   Disable safe process search mode for the process.\n");
+    fprintf(os, "  /E   Enable safe process search mode for the process.\n");
     fprintf(os, "  /V   Print version and exit successfully.\n");
     fprintf(os, "  /?   Print this help and exit successfully.\n\n");
     version(os);
@@ -114,7 +116,10 @@ finished:
 
 int wmain(int argc, const wchar_t **wargv)
 {
-    int      i, n, rc = 0;
+    int      i;
+    int      n;
+    int      ap = 1;
+    int      rc = 0;
     int      ppath = 0;
     wchar_t *p;
 
@@ -122,34 +127,45 @@ int wmain(int argc, const wchar_t **wargv)
         usage(stderr);
         return ERROR_INVALID_PARAMETER;
     }
-    if (((wargv[1][0] == L'-') || (wargv[1][0] == L'/')) &&
-        (wargv[1][1] != L'\0') && (wargv[1][2] == L'\0')) {
-            switch (wargv[1][1]) {
-                case L'v':
-                case L'V':
-                    version(stdout);
-                    return 0;
-                break;
-                case L'?':
-                    usage(stdout);
-                    return 0;
-                break;
-                case L'p':
-                case L'P':
-                    ppath = 1;
-                break;
-                default:
-                    fprintf(stderr, WWHICH_INTNAME ": invalid option '%S'\n", wargv[1]);
-                    usage(stderr);
-                    return ERROR_INVALID_PARAMETER;
-                break;
-            }
+    while (((wargv[ap][0] == L'-') || (wargv[ap][0] == L'/')) &&
+            (wargv[ap][1] != L'\0') && (wargv[ap][2] == L'\0')) {
+        switch (wargv[ap][1]) {
+            case L'v':
+            case L'V':
+                version(stdout);
+                return 0;
+            break;
+            case L'?':
+                usage(stdout);
+                return 0;
+            break;
+            case L'p':
+            case L'P':
+                ++ppath;
+            break;
+            case L'd':
+            case L'D':
+                SetSearchPathMode(BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE);
+            break;
+            case L'e':
+            case L'E':
+                SetSearchPathMode(BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE);
+            break;
+            default:
+                fprintf(stderr, WWHICH_INTNAME ": invalid option '%S'\n", wargv[1]);
+                usage(stderr);
+                return ERROR_INVALID_PARAMETER;
+            break;
+        }
+        ap++;
+        if (ap >= argc)
+            break;
     }
     if ((p = _wgetenv(L"PATH")) == NULL) {
         fputs(WWHICH_INTNAME ": missing PATH environment variable", stderr);
         return ERROR_ENVVAR_NOT_FOUND;
     }
-    for (i = ppath + 1, n = 0; i < argc; i++, n++) {
+    for (i = ap, n = 0; i < argc; i++, n++) {
         wchar_t *b;
         if ((b = searchpathw(p, wargv[i], ppath)) != NULL) {
             if (n > 0)
